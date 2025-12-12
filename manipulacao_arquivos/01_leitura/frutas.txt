@@ -1,0 +1,9 @@
+Aqui está o arquivo de texto e ele guarda o nome de 5 frutas!
+
+1- Banana
+2- Morango
+3- Melancia
+4- Melão
+5- Framboesa
+
+Fim!
