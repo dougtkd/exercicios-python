@@ -1,12 +1,16 @@
-nome_arquivo = input("Digite o nome do arquivo: ") # Aqui a gente cria a variável nome_arquivo que salva através do input o que for digitado pelo usuário.
+def ler_arquivo(nome_arquivo): # Definimos a função ler_arquivo que recebe como parâmetro nome_arquivo
+    try: # Aqui damos início ao bloco de exceções.. qualquer coisa que retornar diferente do que está sendo passado dentro do try, chama o bloco except
+        with open(nome_arquivo, "r") as arquivo: # li a respeito e o with garante que o arquivo vai ser fechado automaticamente quando sair do bloco. e o open abre o arquivo em modo de leitura  "r", e o as guarda o objeto file dentro de arquivo
+            return arquivo.read() # aqui retorna o arquivo que vai ser todo lido 
+            
+    except FileNotFoundError: # aqui capturamos a exceção saindo do bloco try, quando o usuário digita algum arquivo que não existe.
+        return "Erro: Arquivo inexistente!" # retornamos a mensagem que o arquivo não existe!
+    except Exception as e:  # Segunda exceção: aqui é para casos não previstos. Onde Exception é uma classe padrão para exceções e o as salva essa exceção não prevista no "e".
+        return f"Erro desconhecido: {e}" # retorna uma string que contém a exceção salva no "e".
 
-try: # o try serve para iniciar blocos de exceções. É como que tudo que tiver abaixo dele será executado normalmente. Mas se tiver algo diferente fora do esperado é chamado o bloco de except.
-    with open(nome_arquivo, "r") as arquivo: # aqui gerenciamos através do with que o arquivo seja aberto no modo de leitura "r" e salva o file object no arquivo!
-        conteudo = arquivo.read() # aqui é onde a gente passa a instrução de leitura do arquivo.. e retorna uma string com tudo que está dentro dele.
-        print("\n--- Conteúdo do arquivo --- ") # Então printamos na tela esse título com espaçamento através do \n .. é algo exclusivamente visual pra ficar mais bonito e performático, ou não kkk
-        print(conteudo) # por fim, printamos abaixo o conteúdo do arquivo.
-        
-except FileNotFoundError: # Aqui é o primeiro bloco de exceção para caso seja digitado um arquivo inexistente pelo usuário.
-    print("Erro: arquivo não encontrado!") # Logo, é printado na tela a mensage de erro.
-except Exception as e: # E por fim, esse bloco captura qualquer exceção que não tenha sido tratada nos passos anteriores. o Exception é uma classe padrão para exceções e através do as e a gente vincula a exceção na variável "e" para inspeção!
-    print("Ocorreu um erro ao tentar ler o arquivo: ", e) # printamos a mensagem de erro dessa exceção e mostra o conteúdo que foi salvo na variável.
+if __name__ == "__main__": # esse if é padrão quando queremos rodar o código diretamente no terminal, ou seja.. main "importante quando queremos fazer testes unitários"
+    nome_arquivo = input("Digite o nome do arquivo: ") # salva na variável nome_arquivo o input do usuário
+    resultado = ler_arquivo(nome_arquivo) # chamamos a função ler_arquivo que recebe o input do usuário e guardamos dentro de resultado
+
+    print("\n--- Conteúdo do arquivo ---") # meramente estético, \n faz o espaçamento quebrando a linha.
+    print(resultado) # Por fim, imprimos na tela o resultado!
